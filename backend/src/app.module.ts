@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config'
 import { envSchema } from './env'
 import { AuthModule } from './auth/auth.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
+import { ProductsController } from './controllers/create-product'
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -13,7 +15,11 @@ import { AuthenticateController } from './controllers/authenticate.controller'
     }),
     AuthModule,
   ],
-  controllers: [CreateUserController, AuthenticateController],
+  controllers: [
+    CreateUserController,
+    AuthenticateController,
+    ProductsController,
+  ],
   providers: [PrismaService],
 })
 export class AppModule {}
