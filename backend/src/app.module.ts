@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { ProductsController } from './controllers/products.controller'
 import { UsersService } from './services/users.service'
+import { ProductsService } from './services/products.service'
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { UsersService } from './services/users.service'
     AuthenticateController,
     ProductsController,
   ],
-  providers: [PrismaService, UsersService],
+  providers: [PrismaService, UsersService, ProductsService],
 })
 export class AppModule {}

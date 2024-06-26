@@ -1,19 +1,15 @@
-import { Controller, Post, UseGuards } from '@nestjs/common'
-import { PrismaService } from '../prisma/prisma.service'
-import { JwtAuthGuard } from '../auth/jwt-auth.guard'
-import { CurrentUser } from '../auth/current-user-decorator'
-import { UserPayload } from 'src/auth/jwt-strategy'
+import { Controller, Post, Body, UseGuards } from '@nestjs/common'
+import { ProductsService } from '../services/products.service'
+import { CreateProductDto } from '../dtos/create-product.dto'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 
 @Controller('/products')
 @UseGuards(JwtAuthGuard)
 export class ProductsController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private productsService: ProductsService) {}
 
   @Post()
-  getPaidProducts(@CurrentUser() user: UserPayload) {
-    console.log(user.sub)
-    return {
-      test: 'ok',
-    }
+  create(@Body() createProductDto: CreateProductDto) {
+    return this.productsService.create(createProductDto)
   }
 }
