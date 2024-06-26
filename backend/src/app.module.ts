@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common'
 import { PrismaService } from './prisma/prisma.service'
-import { CreateUserController } from './controllers/create-user.controller'
+import { CreateUserController } from './controllers/users.controller'
 import { ConfigModule } from '@nestjs/config'
 import { envSchema } from './env'
 import { AuthModule } from './auth/auth.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
-import { ProductsController } from './controllers/create-product'
+import { ProductsController } from './controllers/products.controller'
+import { UsersService } from './services/users.service'
 
 @Module({
   imports: [
@@ -20,6 +21,6 @@ import { ProductsController } from './controllers/create-product'
     AuthenticateController,
     ProductsController,
   ],
-  providers: [PrismaService],
+  providers: [PrismaService, UsersService],
 })
 export class AppModule {}
