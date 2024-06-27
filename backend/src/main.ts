@@ -9,13 +9,13 @@ async function bootstrap() {
   const configService = app.get<ConfigService<Env, true>>(ConfigService)
   const port = configService.get('PORT', { infer: true })
 
-  const configSwagger = new DocumentBuilder()
-    .setTitle('Desafio Digiboard API')
-    .setDescription('API para o desafio Digiboard')
+  const config = new DocumentBuilder()
+    .setTitle('Estoque API')
+    .setDescription('API para controle de estoque')
     .setVersion('1.0')
+    .addBearerAuth()
     .build()
-
-  const document = SwaggerModule.createDocument(app, configSwagger)
+  const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
 
   await app.listen(port)

@@ -1,8 +1,24 @@
-import { Controller, Post, Body, UseGuards, Get, Param } from '@nestjs/common'
-import { ProductsService } from '../services/products.service'
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Get,
+  Param,
+  Put,
+  UsePipes,
+  Delete,
+} from '@nestjs/common'
+import {
+  ProductsService,
+  createProductSchema,
+} from '../services/products.service'
 import { CreateProductDto } from '../dtos/create-product.dto'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { ApiTags, ApiOperation } from '@nestjs/swagger'
+import { ZodValidationPipe } from 'src/pipes/zod-validation'
+
+const bodyValidationPipe = new ZodValidationPipe(createProductSchema)
 
 @Controller('/products')
 @UseGuards(JwtAuthGuard)
@@ -12,6 +28,7 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'Create product' })
   @Post()
+  @UsePipes(new ZodValidationPipe(createProductSchema))
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto)
   }
@@ -20,5 +37,20 @@ export class ProductsController {
   @Get('/:id')
   getProductById(@Param('id') id: string) {
     return this.productsService.getProductById(id)
+  }
+
+  @ApiOperation({ summary: 'Update product' })
+  @Put('/:id')
+  update(
+    @Param('id') id: string,
+    @Body(bodyValidationPipe) body: CreateProductDto,
+  ) {
+    return this.productsService.update(id, body)
+  }
+
+  @ApiOperation({ summary: 'Delete product' })
+  @Delete('/:id')
+  delete(@Param('id') id: string) {
+    return this.productsService.delete(id)
   }
 }

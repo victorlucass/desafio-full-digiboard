@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
   UsePipes,
 } from '@nestjs/common'
@@ -14,14 +16,16 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { ZodValidationPipe } from 'src/pipes/zod-validation'
 
+const bodyValidationPipe = new ZodValidationPipe(createUserSchema)
+
 @ApiTags('users')
 @Controller('/users')
 export class CreateUserController {
   constructor(private service: UsersService) {}
 
   @ApiOperation({ summary: 'Create user' })
-  @Post()
   @UsePipes(new ZodValidationPipe(createUserSchema))
+  @Post()
   async create(@Body() body: CreateUserDto) {
     console.log(body)
     await this.service.create(body)
@@ -36,9 +40,18 @@ export class CreateUserController {
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Update user' })
-  @Post('/:id')
-  @UsePipes(new ZodValidationPipe(createUserSchema))
-  async update(@Param('id') id: string, @Body() body: CreateUserDto) {
+  @Put('/:id')
+  async update(
+    @Body(bodyValidationPipe) body: CreateUserDto,
+    @Param('id') id: string,
+  ) {
     await this.service.update(id, body)
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Delete user' })
+  @Delete('/:id')
+  async delete(@Param('id') id: string) {
+    await this.service.delete(id)
   }
 }

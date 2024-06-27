@@ -1,21 +1,22 @@
-import { ConflictException, Injectable, UsePipes } from '@nestjs/common'
+import { ConflictException, Injectable } from '@nestjs/common'
 import { CreateProductDto } from 'src/dtos/create-product.dto'
-import { ZodValidationPipe } from 'src/pipes/zod-validation'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
 
-const createProductSchema = z
+export const createProductSchema = z
   .object({
     code: z.string(),
     description: z.string(),
     entryDate: z.string(),
     expiryDate: z.string(),
     stock: z.number(),
+    price: z.number(),
+    imgUrl: z.string(),
+    name: z.string(),
   })
   .required()
 
 @Injectable()
-@UsePipes(new ZodValidationPipe(createProductSchema))
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
@@ -69,5 +70,44 @@ export class ProductsService {
     }
 
     return product
+  }
+
+  async update(id: string, body: CreateProductDto) {
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!product) {
+      throw new Error('Produto não encontrado')
+    }
+
+    await this.prisma.product.update({
+      where: {
+        id,
+      },
+      data: {
+        ...body,
+      },
+    })
+  }
+
+  async delete(id: string) {
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!product) {
+      throw new Error('Produto não encontrado')
+    }
+
+    await this.prisma.product.delete({
+      where: {
+        id,
+      },
+    })
   }
 }
