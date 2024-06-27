@@ -20,7 +20,16 @@ export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto) {
-    const { code, description, entryDate, expiryDate, stock } = createProductDto
+    const {
+      name,
+      code,
+      description,
+      entryDate,
+      expiryDate,
+      stock,
+      price,
+      imgUrl,
+    } = createProductDto
 
     const productWithSameCode = await this.prisma.product.findMany({
       where: {
@@ -36,12 +45,29 @@ export class ProductsService {
 
     await this.prisma.product.create({
       data: {
+        name,
         code,
         description,
         entryDate,
         expiryDate,
         stock,
+        price,
+        imgUrl,
       },
     })
+  }
+
+  async getProductById(id: string) {
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!product) {
+      throw new Error('Produto não encontrado')
+    }
+
+    return product
   }
 }

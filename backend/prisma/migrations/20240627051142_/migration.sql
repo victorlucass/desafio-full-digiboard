@@ -1,53 +1,33 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Payments` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Products` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Users` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Payments" DROP CONSTRAINT "Payments_product_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "Payments" DROP CONSTRAINT "Payments_user_id_fkey";
-
--- DropTable
-DROP TABLE "Payments";
-
--- DropTable
-DROP TABLE "Products";
-
--- DropTable
-DROP TABLE "Users";
-
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "githubUsername" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Product" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "entry_date" TIMESTAMP(3) NOT NULL,
     "expiry_date" TIMESTAMP(3) NOT NULL,
     "stock" INTEGER NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Payment" (
-    "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
-    "product_id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "product_id" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
     "delivery_date" TIMESTAMP(3) NOT NULL,

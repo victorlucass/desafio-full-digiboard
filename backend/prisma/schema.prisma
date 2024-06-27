@@ -14,20 +14,24 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  name     String
-  email    String    @unique
-  password String
-  payments Payment[]
+  id             String    @id @default(uuid())
+  name           String
+  email          String    @unique
+  password       String
+  githubUsername String
+  payments       Payment[]
 }
 
 model Product {
   id          String    @id @default(uuid())
+  name        String
   code        String
   description String
   entryDate   DateTime  @map("entry_date")
   expiryDate  DateTime  @map("expiry_date")
   stock       Int
+  price       Float
+  imgUrl      String    @map("img_url")
   payments    Payment[]
 }
 
