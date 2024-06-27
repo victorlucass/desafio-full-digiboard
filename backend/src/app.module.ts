@@ -8,6 +8,8 @@ import { AuthenticateController } from './controllers/authenticate.controller'
 import { ProductsController } from './controllers/products.controller'
 import { UsersService } from './services/users.service'
 import { ProductsService } from './services/products.service'
+import { PaymentsController } from './controllers/payments.controller'
+import { PaymentsService } from './services/payments.service'
 
 @Module({
   imports: [
@@ -21,7 +23,8 @@ import { ProductsService } from './services/products.service'
     CreateUserController,
     AuthenticateController,
     ProductsController,
+    PaymentsController,
   ],
-  providers: [PrismaService, UsersService, ProductsService],
+  providers: [PrismaService, UsersService, ProductsService, PaymentsService],
 })
 export class AppModule {}
