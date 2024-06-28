@@ -23,6 +23,13 @@ const bodyValidationPipe = new ZodValidationPipe(createUserSchema)
 export class CreateUserController {
   constructor(private service: UsersService) {}
 
+  @ApiOperation({ summary: 'Get all users' })
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async findAll() {
+    return await this.service.findAll()
+  }
+
   @ApiOperation({ summary: 'Create user' })
   @UsePipes(new ZodValidationPipe(createUserSchema))
   @Post()

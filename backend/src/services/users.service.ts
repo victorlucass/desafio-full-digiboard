@@ -17,6 +17,11 @@ export const createUserSchema = z
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
+  async findAll() {
+    const users = await this.prisma.user.findMany()
+    return users
+  }
+
   async create(body: CreateUserDto) {
     const { name, email, password, githubUsername } = body
 
