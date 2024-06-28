@@ -14,6 +14,7 @@ import { UserResolver } from './users/user-resolver.service';
 import { ProductResolver } from './products/product-resolver.service';
 import { PaymentResolver } from './payments/payment-resolver.service';
 import { StoreComponent } from './store/store.component';
+import { LoginCreateComponent } from './auth/login-create/login-create.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]
   },
+  { path: 'create-user', component: LoginCreateComponent },
   { path: '**', redirectTo: '' }
 ];
 

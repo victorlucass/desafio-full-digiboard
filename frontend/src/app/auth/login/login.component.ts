@@ -10,8 +10,8 @@ import { UsersService } from 'src/app/users/users.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  email: string = 'victorlucas@admin.com';
-  password: string = '123456';
+  email: string = '';
+  password: string = '';
   payload: any;
   
   constructor(private authService: AuthService, private router: Router, private user: UsersService) {
@@ -19,12 +19,11 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.email, this.password).subscribe(() => {
-      this.payload = this.authService.getPayload();
-      this.user.getUserById(this.payload.sub).subscribe((user) => {
-        localStorage.setItem('user', JSON.stringify(user));
-      });
-
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
+      // this.payload = this.authService.getPayload();
+      // this.user.getUserById(this.payload.sub).subscribe((user) => {
+      //   localStorage.setItem('user', JSON.stringify(user));
+      // });
     });
   }
 }

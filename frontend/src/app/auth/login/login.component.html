@@ -1,14 +1,20 @@
-<div class="login-container">
-  <div class="card">
-    <h2>Login</h2>
-    <form (ngSubmit)="login()">
-      <label for="email">email</label>
-      <input type="email" id="email" [(ngModel)]="email" name="email" required>
+<div class="w-full h-screen flex justify-content-center align-items-center">
+  <p-card header="Login">
+    <form (ngSubmit)="login()" class="flex flex-column gap-4">
+      <div class="flex flex-column justify-content-center align-items-center">
+        <input type="email" class="w-full" pInputText id="email" [(ngModel)]="email" name="email" placeholder="Email"
+          required>
+      </div>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+      <div class="flex flex-column justify-content-center align-items-center">
+        <p-password class="w-full" [feedback]="false" [(ngModel)]="password" name="password" placeholder="Senha" [toggleMask]="true"
+          required></p-password>
+      </div>
 
-      <button type="submit">Login</button>
+      <div class="flex flex-column justify-content-center align-items-center gap-4">
+        <p-button label="Entrar" type="submit"></p-button>
+        <p-button label="Criar conta" [text]="true" severity="info" routerLink="/create-user"></p-button>
+      </div>
     </form>
-  </div>
+  </p-card>
 </div>
