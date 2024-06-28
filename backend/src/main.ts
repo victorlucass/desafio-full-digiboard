@@ -25,6 +25,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
 
+  // Habilitando CORS
   app.enableCors({
     origin: 'http://localhost:4200', // ou a origem que você deseja permitir
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -32,7 +33,6 @@ async function bootstrap() {
   })
 
   app.useGlobalPipes(new ValidationPipe())
-
   await app.listen(port)
 }
 bootstrap()
