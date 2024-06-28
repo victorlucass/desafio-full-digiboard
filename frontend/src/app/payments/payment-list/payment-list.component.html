@@ -1,0 +1,21 @@
+<div class="payment-list-container">
+  <h2>Payments</h2>
+  <p-table [value]="payments">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Product ID</th>
+        <th>User ID</th>
+        <th>Quantity</th>
+        <th>Date Delivered</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-payment>
+      <tr>
+        <td>{{ payment.productId }}</td>
+        <td>{{ payment.userId }}</td>
+        <td>{{ payment.quantity }}</td>
+        <td>{{ payment.dateDelivered | date }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
