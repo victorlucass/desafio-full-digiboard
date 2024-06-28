@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 })
 export class UserCreateComponent {
   user: User = {
-    username: '',
-    password: ''
+    name: '',
+    password: '',
+    githubUsername: '',
+    email: ''
   };
 
   constructor(private usersService: UsersService, private router: Router) {}

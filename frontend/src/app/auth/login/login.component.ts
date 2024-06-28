@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { UsersService } from 'src/app/users/users.service';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,18 @@ import { MenuItem } from 'primeng/api';
 export class LoginComponent {
   email: string = 'victorlucas@admin.com';
   password: string = '123456';
-
-  constructor(private authService: AuthService, private router: Router) {
-   
+  payload: any;
+  
+  constructor(private authService: AuthService, private router: Router, private user: UsersService) {
   }
 
   login() {
     this.authService.login(this.email, this.password).subscribe(() => {
+      this.payload = this.authService.getPayload();
+      this.user.getUserById(this.payload.sub).subscribe((user) => {
+        localStorage.setItem('user', JSON.stringify(user));
+      });
+
       this.router.navigate(['/']);
     });
   }

@@ -1,5 +1,7 @@
 export interface User {
-  id?: number;
-  username: string;
-  password?: string;
+ id?: string
+ name: string
+ email: string
+ password?: string
+ githubUsername: string
 }
