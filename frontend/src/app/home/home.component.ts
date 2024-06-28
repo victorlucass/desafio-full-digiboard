@@ -9,6 +9,24 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HomeComponent {
 
+  items = [
+    {
+      label: 'Usúarios',
+      icon: 'pi pi-user',
+      routerLink: 'users'
+    },
+    {
+      label: 'Produtos',
+      icon: 'pi pi-fw pi-box',
+      routerLink: 'products'
+    },
+    {
+      label: 'Pagamentos',
+      icon: 'pi pi-fw pi-money-bill',
+      routerLink: 'payments'
+    }
+  ];
+
   constructor(public authService: AuthService, private router: Router) {}
 
   logout() {

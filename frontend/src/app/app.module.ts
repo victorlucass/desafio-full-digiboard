@@ -21,11 +21,11 @@ import { PaymentsModule } from './payments/payments.module';
 
 // Home
 import { HomeComponent } from './home/home.component';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +35,8 @@ import { HomeComponent } from './home/home.component';
     AuthModule,
     UsersModule,
     ProductsModule,
-    PaymentsModule
+    PaymentsModule,
+    HomeModule
   ],
   providers: [
     AuthGuard,
