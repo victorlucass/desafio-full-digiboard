@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../users.service';
+import { ActivatedRoute } from '@angular/router';
 import { User } from '../user.model';
 
 @Component({
@@ -10,12 +10,12 @@ import { User } from '../user.model';
 export class UserListComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private usersService: UsersService) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.usersService.getUsers().subscribe(users => {
-      console.log(users);
-      this.users = users;
+    this.route.data.subscribe((data: any) => {
+      console.log(data);
+      this.users = data.users;
     });
   }
 }

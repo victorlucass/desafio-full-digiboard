@@ -9,19 +9,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-create.component.scss']
 })
 export class ProductCreateComponent {
-  product: Product = {
-    code: '',
-    description: '',
-    dateEntry: new Date(),
-    expiration: new Date(),
-    stock: 0
-  };
+  // product: Product = {
+  //   code: '',
+  //   description: '',
+  //   dateEntry: new Date(),
+  //   expiration: new Date(),
+  //   stock: 0
+  // };
 
-  constructor(private productsService: ProductsService, private router: Router) {}
+  // constructor(private productsService: ProductsService, private router: Router) {}
 
-  createProduct() {
-    this.productsService.createProduct(this.product).subscribe(() => {
-      this.router.navigate(['/products']);
-    });
-  }
+  // createProduct() {
+  //   this.productsService.createProduct(this.product).subscribe(() => {
+  //     this.router.navigate(['/products']);
+  //   });
+  // }
 }
