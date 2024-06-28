@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UserCreateComponent {
   user: User = {
+    id: '',
     name: '',
     password: '',
     githubUsername: '',

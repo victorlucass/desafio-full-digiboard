@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class PaymentCreateComponent {
   payment: Payment = {
-    productId: 0,
-    userId: 0,
+    productId: '',
+    userId: '',
     quantity: 0
   };
 

@@ -3,7 +3,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th>Código</th>
-        <th>Descrição</th>
+        <th>Nome</th>
         <th>Data Entrada</th>
         <th>Data Validade</th>
         <th>Estoque</th>
@@ -13,7 +13,7 @@
     <ng-template pTemplate="body" let-product>
       <tr>
         <td>{{ product.code }}</td>
-        <td>{{ product.description }}</td>
+        <td>{{ product.name }}</td>
         <td>{{ product.entryDate | date:"dd/MM/yyyy" }}</td>
         <td>{{ product.expiryDate | date:"dd/MM/yyyy" }}</td>
         <td>{{ product.stock }}</td>

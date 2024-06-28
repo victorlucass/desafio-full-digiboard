@@ -1,1 +1,45 @@
-<p>store works!</p>
+<div class="card">
+  <p-dataView #dv [value]="products">
+    <ng-template let-product pTemplate="listItem">
+      <div class="col-12">
+        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+          <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="product.imgUrl"
+            [alt]="product.name" />
+          <div
+            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+              <div class="text-2xl font-bold text-900">{{ product.name }}</div>
+              <div class="flex align-items-center gap-3">
+                <span class="flex flex-column align-items-start gap-1">
+                  <p-tag [value]="product.stock + ' em estoque'" [rounded]="true"
+                    [severity]="getSeverity(product)"></p-tag>
+                  <p-tag *ngIf="!validateExpiration(product)" [rounded]="true" severity="info">Expira em {{ product.entryDate | date: 'dd/MM/yyyy' }}</p-tag>
+                  <p-tag *ngIf="validateExpiration(product)" [rounded]="true" severity="danger">Produto Expirado em {{ product.expiryDate | date: 'dd/MM/yyyy' }}</p-tag>
+                  <span>
+                    <h4>Descrição</h4>
+                    <p>{{ product.description }}</p>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+              <span class="text-2xl font-semibold">{{ product.price | currency: 'BRL' }}</span>
+              <div class="flex flex-column align-items-center gap-2" *ngIf="product.stock > 0 && !validateExpiration(product)">
+                <span class="flex gap-1">
+                  <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded"
+                    [disabled]="product.stock === 0 || quantity === 0" (click)="toPayment(product)"></button>
+                </span>
+                <p-inputNumber [size]="1" [(ngModel)]="quantity" [showButtons]="true" buttonLayout="horizontal"
+                  inputId="horizontal" spinnerMode="horizontal" decrementButtonClass="p-button-info"
+                  incrementButtonClass="p-button-info" incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus" mode="decimal" [min]="0" [max]="product.stock"></p-inputNumber>
+                <span>Total: {{ getTotalPrice(product) | currency: 'BRL' }}</span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

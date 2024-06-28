@@ -5,6 +5,7 @@
         <th>Produto</th>
         <th>Cliente</th>
         <th>Quantidade</th>
+        <th>Valor</th>
         <th>Data de Entrega</th>
         <th>Status</th>
       </tr>
@@ -17,6 +18,7 @@
           </p-chip>
         </td>
         <td>{{ payment.quantity }}</td>
+        <td>{{ payment.product.price * payment.quantity | currency: 'BRL' }}</td>
         <td>{{ payment.deliveryDate | date:"dd/MM/yyyy" }}</td>
         <td> <p-tag severity="success" [value]="payment.status "></p-tag></td>
       </tr>
