@@ -4,6 +4,8 @@ import { PaymentListComponent } from './payment-list/payment-list.component';
 import { PaymentCreateComponent } from './payment-create/payment-create.component';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
+import { ChipModule } from 'primeng/chip';
+import { TagModule } from 'primeng/tag';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     TableModule,
-    FormsModule
+    FormsModule,
+    ChipModule,
+    TagModule
   ]
 })
 export class PaymentsModule { }

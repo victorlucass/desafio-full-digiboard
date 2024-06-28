@@ -1,20 +1,24 @@
 <div class="payment-list-container">
-  <h2>Payments</h2>
   <p-table [value]="payments">
     <ng-template pTemplate="header">
       <tr>
-        <th>Product ID</th>
-        <th>User ID</th>
-        <th>Quantity</th>
-        <th>Date Delivered</th>
+        <th>Produto</th>
+        <th>Cliente</th>
+        <th>Quantidade</th>
+        <th>Data de Entrega</th>
+        <th>Status</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-payment>
       <tr>
-        <td>{{ payment.productId }}</td>
-        <td>{{ payment.userId }}</td>
+        <td>{{ payment.product.name }}</td>
+        <td>
+          <p-chip [label]="payment.user.name" image="https://github.com/{{ payment.user.githubUsername }}.png">
+          </p-chip>
+        </td>
         <td>{{ payment.quantity }}</td>
-        <td>{{ payment.dateDelivered | date }}</td>
+        <td>{{ payment.deliveryDate | date:"dd/MM/yyyy" }}</td>
+        <td> <p-tag severity="success" [value]="payment.status "></p-tag></td>
       </tr>
     </ng-template>
   </p-table>

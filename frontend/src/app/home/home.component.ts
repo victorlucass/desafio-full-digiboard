@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { MenuItem } from 'primeng/api';
 
-interface MenuItem {
-  label: string;
-  icon: string;
-  routerLink: string;
-}
 
 const LOGIN_ROUTE = '/login';
 
@@ -18,8 +14,15 @@ const LOGIN_ROUTE = '/login';
 export class HomeComponent implements OnInit {
 
   items: MenuItem[] = [
-    { label: 'Usuários', icon: 'pi pi-user', routerLink: 'users' },
-    { label: 'Produtos', icon: 'pi pi-fw pi-box', routerLink: 'products' },
+    { label: 'Loja', icon: 'pi pi-fw pi-home', routerLink: 'store' },
+    { label: 'Usuários', icon: 'pi pi-user', items: [
+      { label: 'Listar', icon: 'pi pi-fw pi-list', routerLink: 'users' },
+      { label: 'Criar', icon: 'pi pi-fw pi-plus', routerLink: 'users/create' }
+    ] },
+    { label: 'Produtos', icon: 'pi pi-fw pi-box', items: [
+      { label: 'Listar', icon: 'pi pi-fw pi-list', routerLink: 'products' },
+      { label: 'Criar', icon: 'pi pi-fw pi-plus', routerLink: 'products/create' }
+    ]},
     { label: 'Pagamentos', icon: 'pi pi-fw pi-money-bill', routerLink: 'payments' }
   ];
 

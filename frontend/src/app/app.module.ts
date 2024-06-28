@@ -20,10 +20,12 @@ import { ProductsModule } from './products/products.module';
 import { PaymentsModule } from './payments/payments.module';
 
 import { HomeModule } from './home/home.module';
+import { StoreComponent } from './store/store.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StoreComponent
   ],
   imports: [
     BrowserModule,

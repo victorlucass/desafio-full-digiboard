@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentsService } from '../payments.service';
 import { Payment } from '../payment.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payment-list',
@@ -8,13 +9,13 @@ import { Payment } from '../payment.model';
   styleUrls: ['./payment-list.component.scss']
 })
 export class PaymentListComponent implements OnInit {
-  payments: Payment[] = [];
-
-  constructor(private paymentsService: PaymentsService) {}
+  payments: any[] = [];
+ 
+  constructor(private router: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.paymentsService.getPayments().subscribe(payments => {
-      this.payments = payments;
-    });
+   this.router.data.subscribe((data: any) => {
+     this.payments = data.payments
+   })
   }
 }

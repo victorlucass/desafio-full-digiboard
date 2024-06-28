@@ -13,18 +13,20 @@ import { PaymentCreateComponent } from './payments/payment-create/payment-create
 import { UserResolver } from './users/user-resolver.service';
 import { ProductResolver } from './products/product-resolver.service';
 import { PaymentResolver } from './payments/payment-resolver.service';
+import { StoreComponent } from './store/store.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'users', component: UserListComponent, resolve: { users: UserResolver } },
+      { path: 'store', component: StoreComponent },
       { path: 'users/create', component: UserCreateComponent },
       { path: 'products', component: ProductListComponent, resolve: { products: ProductResolver } },
       { path: 'products/create', component: ProductCreateComponent },
       { path: 'payments', component: PaymentListComponent, resolve: { payments: PaymentResolver } },
       { path: 'payments/create', component: PaymentCreateComponent },
-      { path: '', redirectTo: 'users', pathMatch: 'full' }
+      { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]
   },
   { path: '**', redirectTo: '' }
