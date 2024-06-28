@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
+import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
@@ -11,14 +12,16 @@ import { PaymentCreateComponent } from './payments/payment-create/payment-create
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
-  { path: 'users/create', component: UserCreateComponent, canActivate: [AuthGuard] },
-  { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
-  { path: 'products/create', component: ProductCreateComponent, canActivate: [AuthGuard] },
-  { path: 'payments', component: PaymentListComponent, canActivate: [AuthGuard] },
-  { path: 'payments/create', component: PaymentCreateComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+  { path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
+    { path: 'users', component: UserListComponent },
+    { path: 'users/create', component: UserCreateComponent },
+    { path: 'products', component: ProductListComponent },
+    { path: 'products/create', component: ProductCreateComponent },
+    { path: 'payments', component: PaymentListComponent },
+    { path: 'payments/create', component: PaymentCreateComponent },
+    { path: '', redirectTo: 'users', pathMatch: 'full' }
+  ] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

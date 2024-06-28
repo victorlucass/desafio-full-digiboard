@@ -19,9 +19,13 @@ import { ProductsModule } from './products/products.module';
 // Payments
 import { PaymentsModule } from './payments/payments.module';
 
+// Home
+import { HomeComponent } from './home/home.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
