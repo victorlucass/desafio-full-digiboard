@@ -26,6 +26,12 @@ const bodyValidationPipe = new ZodValidationPipe(createProductSchema)
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @ApiOperation({ summary: 'Get all products' })
+  @Get()
+  findAll() {
+    return this.productsService.findAll()
+  }
+
   @ApiOperation({ summary: 'Create product' })
   @Post()
   @UsePipes(new ZodValidationPipe(createProductSchema))

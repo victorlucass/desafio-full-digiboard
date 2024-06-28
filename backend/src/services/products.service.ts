@@ -20,6 +20,11 @@ export const createProductSchema = z
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
+  async findAll() {
+    const products = await this.prisma.product.findMany()
+    return products
+  }
+
   async create(createProductDto: CreateProductDto) {
     const {
       name,
