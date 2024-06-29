@@ -63,6 +63,7 @@ export class PaymentsService {
   async findAll() {
     return this.prisma.payment.findMany({
       include: { product: true, user: true },
+      orderBy: { deliveryDate: 'desc' },
     })
   }
 

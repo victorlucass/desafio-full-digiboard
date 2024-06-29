@@ -109,6 +109,12 @@ export class ProductsService {
       throw new Error('Produto não encontrado')
     }
 
+    await this.prisma.payment.deleteMany({
+      where: {
+        productId: id,
+      },
+    })
+
     await this.prisma.product.delete({
       where: {
         id,

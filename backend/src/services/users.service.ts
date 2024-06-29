@@ -79,6 +79,8 @@ export class UsersService {
 
     const { name, email, password, githubUsername } = body
 
+    const hashedPassword = await hash(password, 8)
+
     await this.prisma.user.update({
       where: {
         id,
@@ -86,7 +88,7 @@ export class UsersService {
       data: {
         name,
         email,
-        password,
+        password: hashedPassword,
         githubUsername,
       },
     })
@@ -102,6 +104,12 @@ export class UsersService {
     if (!user) {
       throw new Error('Usuário não encontrado')
     }
+
+    await this.prisma.payment.deleteMany({
+      where: {
+        userId: id,
+      },
+    })
 
     await this.prisma.user.delete({
       where: {
