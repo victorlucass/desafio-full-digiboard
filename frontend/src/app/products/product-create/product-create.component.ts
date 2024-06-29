@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products.service';
-import { Product } from '../product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { format, parseISO } from 'date-fns';
+import { addDays, format, parseISO } from 'date-fns';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -72,7 +71,7 @@ export class ProductCreateComponent implements OnInit {
   private updateProduct(): void {
     this.productService.updateProduct(this.idProduct!, {
       ...this.productForm.value,
-      expiryDate: new Date(this.productForm.value.expiryDate).toISOString(),
+      expiryDate: addDays(new Date(this.productForm.value.expiryDate).toISOString(), 1),
       entryDate: new Date().toISOString(),
     }).subscribe(() => {
       this.router.navigate(['/store']);
@@ -95,7 +94,7 @@ export class ProductCreateComponent implements OnInit {
   private createProduct(): void {
     this.productService.createProduct({
       ...this.productForm.value,
-      expiryDate: new Date(this.productForm.value.expiryDate).toISOString(),
+      expiryDate: addDays(new Date(this.productForm.value.expiryDate).toISOString(), 1),
       entryDate: new Date().toISOString(),
     }).subscribe(() => {
       this.router.navigate(['/store']);

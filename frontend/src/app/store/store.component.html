@@ -10,6 +10,7 @@
             <div class="flex flex-column align-items-center sm:align-items-start gap-3">
               <div class="text-2xl font-bold text-900">{{ product.name }}</div>
               <span class="text-2xl font-semibold">{{ product.price | currency: 'BRL' }}</span>
+              <p-tag severity="info">{{ getTotalPrice(product) | currency: 'BRL' }}</p-tag>
               <div class="flex align-items-center gap-3">
                 <span class="flex flex-column align-items-start gap-1">
                   <p-tag [value]="product.stock + ' em estoque'" [rounded]="true"
@@ -43,9 +44,6 @@
                 decrementButtonClass="p-button-info" incrementButtonClass="p-button-info"
                 incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="decimal" [min]="1"
                 [max]="product.stock"></p-inputNumber>
-
-                <p-tag severity="info">{{ getTotalPrice(product) | currency: 'BRL' }}</p-tag>
-
               </div>
             </div>
           </div>
