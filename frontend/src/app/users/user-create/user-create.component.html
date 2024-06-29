@@ -1,5 +1,5 @@
 <section class="container">
-  <p-card header="Cadastrar Usuário" styleClass="ui-card-shadow">
+  <p-card [header]="title" styleClass="ui-card-shadow">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="p-fluid flex flex-column gap-4">
         <div class="p-field">
@@ -19,7 +19,7 @@
             placeholder="Github Username" required />
         </div>
 
-        <button pButton type="submit" label="Register" [disabled]="userForm.invalid"></button>
+        <button pButton type="submit" [label]="title" [disabled]="userForm.invalid"></button>
       </div>
     </form>
   </p-card>

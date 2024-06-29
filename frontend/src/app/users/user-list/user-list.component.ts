@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../user.model';
 import { UsersService } from '../users.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-user-list',
@@ -15,7 +16,8 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UsersService
+    private userService: UsersService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class UserListComponent implements OnInit {
   deleteUser(user: User): void {
     this.userService.deleteUser(user.id).subscribe(() => {
       this.users = this.users.filter(u => u.id !== user.id);
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Usuário deletado!' });
     });
   }
 

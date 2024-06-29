@@ -4,6 +4,7 @@ import { Product } from '../product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { format, parseISO } from 'date-fns';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-product-create',
@@ -19,7 +20,8 @@ export class ProductCreateComponent implements OnInit {
     private fb: FormBuilder,
     private productService: ProductsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messageService: MessageService
   ) {
     this.productForm = this.createForm();
     this.idProduct = this.route.snapshot.paramMap.get('id');
@@ -74,6 +76,18 @@ export class ProductCreateComponent implements OnInit {
       entryDate: new Date().toISOString(),
     }).subscribe(() => {
       this.router.navigate(['/store']);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Produto atualizado com sucesso!',
+      })
+    }, (_error) => {
+      const { error } = _error;
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: error.message,
+      });
     });
   }
 
@@ -85,6 +99,18 @@ export class ProductCreateComponent implements OnInit {
       entryDate: new Date().toISOString(),
     }).subscribe(() => {
       this.router.navigate(['/store']);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Produto criado com sucesso!',
+      })
+    }, (_error) => {
+      const { error } = _error;
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: error.message,
+      });
     });
   }
 }

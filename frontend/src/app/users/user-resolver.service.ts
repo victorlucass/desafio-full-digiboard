@@ -10,6 +10,7 @@ import { User } from './user.model';
 export class UserResolver implements Resolve<User[]> {
   constructor(private usersService: UsersService) {}
 
+  // Método para resolver os dados de usuários antes da ativação da rota
   resolve(): Observable<User[]> {
     return this.usersService.getUsers();
   }

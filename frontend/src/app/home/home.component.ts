@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { MenuItem } from 'primeng/api';
 
-
 const LOGIN_ROUTE = '/login';
 
 @Component({
@@ -35,12 +34,14 @@ export class HomeComponent implements OnInit {
     this.loadUserAvatar();
   }
 
+  // Método para redirecionar se o usuário não estiver autenticado
   private redirectIfNotAuthenticated(): void {
     if (!this.authService.isLoggedIn()) {
       this.router.navigate([LOGIN_ROUTE]);
     }
   }
 
+  // Método para carregar o avatar do usuário
   private loadUserAvatar(): void {
     const userLocalStorage = localStorage.getItem('user');
     
@@ -52,11 +53,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Método para limpar a sessão e redirecionar para a página de login
   private clearSessionAndRedirect(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.router.navigate([LOGIN_ROUTE]);
   }
 
+  // Método para realizar logout
   logout(): void {
     this.authService.logout();
     this.router.navigate([LOGIN_ROUTE]);

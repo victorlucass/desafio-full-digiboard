@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PaymentsService } from '../payments.service';
-import { Payment } from '../payment.model';
 import { ActivatedRoute } from '@angular/router';
+import { Payment } from '../payment.model';
+
 
 @Component({
   selector: 'app-payment-list',
@@ -9,13 +9,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./payment-list.component.scss']
 })
 export class PaymentListComponent implements OnInit {
-  payments: any[] = [];
- 
-  constructor(private router: ActivatedRoute) {}
+  payments: Payment[] = [];
+
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-   this.router.data.subscribe((data: any) => {
-     this.payments = data.payments
-   })
+    this.loadPayments();
+  }
+
+  // Método para carregar pagamentos a partir dos dados da rota
+  private loadPayments(): void {
+    this.route.data.subscribe((data) => {
+      const { payments } = data;
+      this.payments = payments;
+    });
   }
 }

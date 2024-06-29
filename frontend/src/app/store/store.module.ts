@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     TagModule,
     InputNumberModule,
-     FormsModule
+    FormsModule,
   ]
 })
 export class StoreModule { }

@@ -12,7 +12,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { LoginCreateComponent } from './login-create/login-create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MessageService } from 'primeng/api';
 @NgModule({
   declarations: [LoginComponent, LoginCreateComponent],
   imports: [
@@ -25,8 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PasswordModule,
     ButtonModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
-  providers: [AuthService, AuthGuard]
+  providers: [AuthService, AuthGuard, MessageService]
 })
 export class AuthModule { }

@@ -21,6 +21,7 @@ import { PaymentsModule } from './payments/payments.module';
 
 import { HomeModule } from './home/home.module';
 import { StoreModule } from './store/store.module';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { StoreModule } from './store/store.module';
     ProductsModule,
     PaymentsModule,
     HomeModule,
-    StoreModule
+    StoreModule,
+    ToastModule
   ],
   providers: [
     AuthGuard,

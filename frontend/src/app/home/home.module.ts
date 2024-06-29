@@ -5,7 +5,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-
 @NgModule({
   declarations: [HomeComponent],
   imports: [
@@ -13,7 +12,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     MenubarModule,
     ButtonModule,
     AvatarModule,
-    AvatarGroupModule
+    AvatarGroupModule,
   ]
 })
 export class HomeModule { }

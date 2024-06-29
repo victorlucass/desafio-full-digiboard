@@ -10,7 +10,6 @@ import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { RouterModule } from '@angular/router';
 
-
 @NgModule({
   declarations: [
     ProductListComponent,
@@ -25,7 +24,7 @@ import { RouterModule } from '@angular/router';
     InputTextModule,
     PasswordModule,
     CardModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class ProductsModule { }

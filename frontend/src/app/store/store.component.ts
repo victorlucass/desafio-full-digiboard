@@ -3,6 +3,8 @@ import { Product } from '../products/product.model';
 import { ProductsService } from '../products/products.service';
 import { PaymentsService } from '../payments/payments.service';
 import { User } from '../users/user.model';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store',
@@ -16,7 +18,9 @@ export class StoreComponent implements OnInit {
 
   constructor(
     private productService: ProductsService,
-    private paymentsService: PaymentsService
+    private paymentsService: PaymentsService,
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -68,14 +72,23 @@ export class StoreComponent implements OnInit {
     const quantity = this.quantities[product.id] || 0;
 
     if (quantity > 0 && this.user) {
-      this.paymentsService.createPayment({
-        userId: this.user.id,
-        productId: product.id,
-        quantity: quantity,
-      }).subscribe(() => {
-        this.quantities[product.id] = 0;
-        this.loadProducts(); // Recarregar produtos para atualizar o estoque
-      });
+      this.paymentsService
+        .createPayment({
+          userId: this.user.id,
+          productId: product.id,
+          quantity: quantity,
+        })
+        .subscribe(() => {
+          this.quantities[product.id] = 0;
+          this.loadProducts(); // Recarregar produtos para atualizar o estoque
+          this.router.navigate(['/payments']).then(() => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Pagamento realizado com sucesso!',
+            });
+          });
+        });
     }
   }
 

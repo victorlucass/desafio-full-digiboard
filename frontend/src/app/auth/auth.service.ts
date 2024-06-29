@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment.dev';
-import { UsersService } from '../users/users.service';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -16,42 +15,51 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private userService: UsersService,
-    private route: Router
+    private router: Router,
   ) {}
 
+  // Método para realizar login
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}`, { email, password }).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.access_token);
-        const pay = this.readPayload(response.access_token);
-        this.userService.getUserById(pay.sub).subscribe((user) => {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.route.navigate(['/']);
-        });
+        this.storeToken(response.access_token);
       })
     );
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  // Método para realizar logout
+  logout(): void {
+    this.clearLocalStorage();
+    this.router.navigate(['/login']);
   }
 
+  // Método para verificar se o usuário está logado
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
+  // Método para ler o payload do token JWT
   readPayload(token: string): any {
-    const pay = this.jwtHelper.decodeToken(token);
-    return pay;
+    return this.jwtHelper.decodeToken(token);
   }
 
+  // Método para obter o payload do token armazenado
   getPayload(): any {
     const token = localStorage.getItem('token');
     if (token) {
-      return this.jwtHelper.decodeToken(token);
+      return this.readPayload(token);
     }
     return null;
+  }
+
+  // Método para armazenar o token no localStorage
+  private storeToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  // Método para limpar o localStorage
+  private clearLocalStorage(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 }

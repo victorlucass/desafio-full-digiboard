@@ -8,31 +8,42 @@ import { UserCreateComponent } from './users/user-create/user-create.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductCreateComponent } from './products/product-create/product-create.component';
 import { PaymentListComponent } from './payments/payment-list/payment-list.component';
-import { PaymentCreateComponent } from './payments/payment-create/payment-create.component';
+import { StoreComponent } from './store/store.component';
+import { LoginCreateComponent } from './auth/login-create/login-create.component';
 
 import { UserResolver } from './users/user-resolver.service';
 import { ProductResolver } from './products/product-resolver.service';
 import { PaymentResolver } from './payments/payment-resolver.service';
-import { StoreComponent } from './store/store.component';
-import { LoginCreateComponent } from './auth/login-create/login-create.component';
 
 const routes: Routes = [
+  // Rota para login
   { path: 'login', component: LoginComponent },
+  // Rota protegida que exige autenticação
   {
     path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
+      // Rota para listar usuários
       { path: 'users', component: UserListComponent, resolve: { users: UserResolver } },
-      { path: 'users/:id', component: UserCreateComponent },
-      { path: 'store', component: StoreComponent },
+      // Rota para criar usuário
       { path: 'users/create', component: UserCreateComponent },
+      // Rota para editar usuário
+      { path: 'users/:id', component: UserCreateComponent },
+      // Rota para a loja
+      { path: 'store', component: StoreComponent },
+      // Rota para listar produtos
       { path: 'products', component: ProductListComponent, resolve: { products: ProductResolver } },
+      // Rota para criar produto
       { path: 'products/create', component: ProductCreateComponent },
+      // Rota para editar produto
       { path: 'product/:id', component: ProductCreateComponent },
+      // Rota para listar pagamentos
       { path: 'payments', component: PaymentListComponent, resolve: { payments: PaymentResolver } },
-      { path: 'payments/create', component: PaymentCreateComponent },
+      // Rota padrão redirecionando para a loja
       { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]
   },
+  // Rota para criar usuário (acessível sem login)
   { path: 'create-user', component: LoginCreateComponent },
+  // Rota para redirecionamento em caso de rota não encontrada
   { path: '**', redirectTo: '' }
 ];
 

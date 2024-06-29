@@ -26,7 +26,8 @@ import { RouterModule } from '@angular/router';
     PasswordModule,
     ButtonModule,
     CardModule,
-    RouterModule
+    RouterModule,
+    
   ]
 })
 export class UsersModule { }

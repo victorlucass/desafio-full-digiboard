@@ -10,6 +10,7 @@ import { Product } from './product.model';
 export class ProductResolver implements Resolve<Product[]> {
   constructor(private productsService: ProductsService) {}
 
+  // Método para resolver os dados de produtos antes da ativação da rota
   resolve(): Observable<Product[]> {
     return this.productsService.getProducts();
   }
