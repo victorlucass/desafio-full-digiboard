@@ -25,7 +25,6 @@ export class ProductListComponent implements OnInit {
   // Método para carregar os produtos
   private loadProducts(): void {
     this.route.data.subscribe((data: any) => {
-      console.log(data);
       this.products = data.products;
     });
   }

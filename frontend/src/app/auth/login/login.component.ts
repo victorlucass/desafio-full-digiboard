@@ -56,7 +56,6 @@ export class LoginComponent {
   // Método para lidar com erro de login
   private handleLoginError(error: any): void {
     const { message } = error.error;
-    console.log(message);
     this.showErrorMessage('Erro', message);
   }
 
