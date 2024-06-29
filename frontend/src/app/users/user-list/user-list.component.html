@@ -15,7 +15,7 @@
         <td>{{ user.githubUsername }}</td>
         <td>
           <p-button icon="pi pi-pencil" class="mr-2" [routerLink]="['/users', user.id]"></p-button>
-          <p-button icon="pi pi-trash" severity="danger" (click)="deleteUser(user)"></p-button>
+          <p-button icon="pi pi-trash" severity="danger" (click)="deleteUser(user)" [disabled]="verifyUser(user)"></p-button>
         </td>
       </tr>
     </ng-template>

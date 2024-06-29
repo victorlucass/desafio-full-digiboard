@@ -10,6 +10,8 @@ import { UsersService } from '../users.service';
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
+  userLocalStorage: User = JSON.parse(localStorage.getItem('user')!);
+
 
   constructor(
     private route: ActivatedRoute,
@@ -33,4 +35,8 @@ export class UserListComponent implements OnInit {
       this.users = this.users.filter(u => u.id !== user.id);
     });
   }
+
+ verifyUser(user: User): boolean {
+   return user.id === this.userLocalStorage.id
+ }
 }
