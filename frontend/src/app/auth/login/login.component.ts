@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
   form!: FormGroup;
   payload: any;
+  hidePassword = true;
 
   constructor(
     private authService: AuthService,
@@ -90,5 +91,10 @@ export class LoginComponent {
   // Método para redirecionar para a página de loja
   private redirectToStore(): void {
     this.router.navigate(['/store']);
+  }
+
+  // Método para alternar a visibilidade da senha
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 }

@@ -25,7 +25,7 @@
       </div>
 
       <div class="flex flex-column justify-content-center align-items-center gap-4">
-        <p-button label="Criar Conta" type="submit"></p-button>
+        <p-button label="Criar Conta" type="submit" [disabled]="isFormInvalid()"></p-button>
         <p-button label="Login" [text]="true" severity="info" routerLink="/login"></p-button>
       </div>
 

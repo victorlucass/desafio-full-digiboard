@@ -48,6 +48,11 @@ export class LoginCreateComponent {
     }
   }
 
+  // Método para validar se o formulário está preenchido
+  isFormInvalid(): boolean {
+    return this.form.invalid;
+  }
+
   // Método para alternar a visibilidade da senha
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
