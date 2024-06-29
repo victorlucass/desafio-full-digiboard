@@ -21,10 +21,12 @@ const routes: Routes = [
   {
     path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'users', component: UserListComponent, resolve: { users: UserResolver } },
+      { path: 'users/:id', component: UserCreateComponent },
       { path: 'store', component: StoreComponent },
       { path: 'users/create', component: UserCreateComponent },
       { path: 'products', component: ProductListComponent, resolve: { products: ProductResolver } },
       { path: 'products/create', component: ProductCreateComponent },
+      { path: 'product/:id', component: ProductCreateComponent },
       { path: 'payments', component: PaymentListComponent, resolve: { payments: PaymentResolver } },
       { path: 'payments/create', component: PaymentCreateComponent },
       { path: '', redirectTo: 'store', pathMatch: 'full' }

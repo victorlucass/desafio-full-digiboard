@@ -5,6 +5,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Github Username</th>
+        <th>Ações</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>
@@ -12,6 +13,10 @@
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.githubUsername }}</td>
+        <td>
+          <p-button icon="pi pi-pencil" class="mr-2" [routerLink]="['/users', user.id]"></p-button>
+          <p-button icon="pi pi-trash" severity="danger" (click)="deleteUser(user)"></p-button>
+        </td>
       </tr>
     </ng-template>
   </p-table>

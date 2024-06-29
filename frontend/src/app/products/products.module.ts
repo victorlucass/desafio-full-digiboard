@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CardModule } from 'primeng/card';
     ReactiveFormsModule,
     InputTextModule,
     PasswordModule,
-    CardModule
+    CardModule,
+    RouterModule
   ]
 })
 export class ProductsModule { }

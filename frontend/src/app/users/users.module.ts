@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -24,7 +25,8 @@ import { CardModule } from 'primeng/card';
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    CardModule
+    CardModule,
+    RouterModule
   ]
 })
 export class UsersModule { }

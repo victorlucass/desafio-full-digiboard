@@ -15,7 +15,7 @@
                   <p-tag [value]="product.stock + ' em estoque'" [rounded]="true"
                     [severity]="getSeverity(product)"></p-tag>
                   <p-tag *ngIf="!validateExpiration(product)" [rounded]="true" severity="info">Expira em {{
-                    product.entryDate | date: 'dd/MM/yyyy' }}</p-tag>
+                    product.expiryDate | date: 'dd/MM/yyyy' }}</p-tag>
                   <p-tag *ngIf="validateExpiration(product)" [rounded]="true" severity="danger">Produto Expirado em {{
                     product.expiryDate | date: 'dd/MM/yyyy' }}</p-tag>
                   <span>
@@ -31,7 +31,7 @@
 
                 <span class="flex gap-1 w-full">
                   <button pButton class="p-button-success flex justify-content-between md:align-self-end mb-2 p-button-rounded w-full"
-                    [disabled]="product.stock === 0 || quantities[product.id] === 0"
+                    [disabled]="product.stock === 0 || quantities[product.id] === 0 || quantities[product.id] == null"
                     (click)="toPayment(product)">
                     Comprar
                     <i class="pi pi-shopping-cart ml-2"></i>
@@ -41,7 +41,7 @@
                 <p-inputNumber [size]="5" [(ngModel)]="quantities[product.id]" [showButtons]="true"
                 buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
                 decrementButtonClass="p-button-info" incrementButtonClass="p-button-info"
-                incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="decimal" [min]="0"
+                incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="decimal" [min]="1"
                 [max]="product.stock"></p-inputNumber>
 
                 <p-tag severity="info">{{ getTotalPrice(product) | currency: 'BRL' }}</p-tag>

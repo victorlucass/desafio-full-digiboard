@@ -1,5 +1,5 @@
 <section class="container">
-  <p-card header="Cadastro de Produtos" styleClass="ui-card-shadow">
+  <p-card [header]="title" styleClass="ui-card-shadow">
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
       <div class="p-fluid flex flex-column gap-4">
         <div class="p-field">
@@ -30,7 +30,7 @@
           <input id="imgUrl" type="text" pInputText formControlName="imgUrl" placeholder="Url da imagem" />
         </div>
 
-        <button pButton type="submit" label="Register" [disabled]="productForm.invalid"></button>
+        <button pButton type="submit" [label]="title" [disabled]="productForm.invalid"></button>
       </div>
     </form>
   </p-card>
