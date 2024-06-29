@@ -7,5 +7,5 @@ export interface Product {
   expiryDate: string,
   stock: 0,
   price: 0,
-  imgUrl: string
+  imgUrl: string,
 }

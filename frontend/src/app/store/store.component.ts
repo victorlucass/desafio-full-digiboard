@@ -11,7 +11,7 @@ import { User } from '../users/user.model';
 })
 export class StoreComponent {
   products!: Product[];
-  quantity: number = 1;
+  quantities: { [productId: string]: number } = {};
   user!: User;
 
   constructor(
@@ -22,7 +22,12 @@ export class StoreComponent {
   ngOnInit() {
     this.productService
       .getProducts()
-      .subscribe((data) => (this.products = data));
+      .subscribe((data) => {
+        this.products = data;
+        this.products.forEach((product) => {
+          this.quantities[product.id] = 0;
+        });
+      });
     if (localStorage.getItem('user')) {
       this.user = JSON.parse(localStorage.getItem('user')!);
       console.log(this.user.id);
@@ -41,19 +46,25 @@ export class StoreComponent {
     return '';
   }
 
-  getTotalPrice(product: Product) {
-    return this.quantity * product.price;
+  getTotalPrice(product: Product): number {
+    return this.quantities[product.id] * product.price;
   }
 
   toPayment(product: Product) {
-    this.paymentsService.createPayment({
-      userId: this.user.id,
-      productId: product.id,
-      quantity: this.quantity
-    }).subscribe(() => {
-      this.quantity = 1
-      this.ngOnInit()
-    })
+    const quantity = this.quantities[product.id] || 0;
+
+    if (quantity > 0) {
+      this.paymentsService
+        .createPayment({
+          userId: this.user.id,
+          productId: product.id,
+          quantity: quantity,
+        })
+        .subscribe(() => {
+          this.quantities[product.id] = 0;
+          this.ngOnInit();
+        });
+    }
   }
 
   validateExpiration(product: Product) {
