@@ -1,27 +1,29 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../users.service';
-import { User } from '../user.model';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-create',
+  selector: 'app-user-registration',
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.scss']
 })
 export class UserCreateComponent {
-  user: User = {
-    id: '',
-    name: '',
-    password: '',
-    githubUsername: '',
-    email: ''
-  };
+  userForm: FormGroup;
 
-  constructor(private usersService: UsersService, private router: Router) {}
-
-  createUser() {
-    this.usersService.createUser(this.user).subscribe(() => {
-      this.router.navigate(['/users']);
+  constructor(private fb: FormBuilder, private service: UsersService) {
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      githubUsername: ['']
     });
+  }
+
+  onSubmit() {
+    if (this.userForm.valid) {
+     this.service.createUser(this.userForm.value).subscribe(() => {
+       this.userForm.reset();
+     })
+    }
   }
 }

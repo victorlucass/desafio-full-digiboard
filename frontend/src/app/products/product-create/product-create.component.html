@@ -1,21 +1,38 @@
-<!-- <div class="product-create-container">
-  <h2>Create Product</h2>
-  <form (ngSubmit)="createProduct()">
-    <label for="code">Code</label>
-    <input type="text" id="code" [(ngModel)]="product.code" name="code" required>
-    
-    <label for="description">Description</label>
-    <input type="text" id="description" [(ngModel)]="product.description" name="description" required>
-    
-    <label for="dateEntry">Date Entry</label>
-    <input type="date" id="dateEntry" [(ngModel)]="product.dateEntry" name="dateEntry" required>
-    
-    <label for="expiration">Expiration</label>
-    <input type="date" id="expiration" [(ngModel)]="product.expiration" name="expiration" required>
-    
-    <label for="stock">Stock</label>
-    <input type="number" id="stock" [(ngModel)]="product.stock" name="stock" required>
-    
-    <button type="submit">Create Product</button>
-  </form>
-</div> -->
+<section class="container">
+  <p-card header="Cadastro de Produtos" styleClass="ui-card-shadow">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="p-fluid flex flex-column gap-4">
+        <div class="p-field">
+          <input id="name" type="text" pInputText formControlName="name" placeholder="Nome" required />
+        </div>
+
+        <div class="p-field">
+          <input id="code" type="text" pInputText formControlName="code" placeholder="Código" required />
+        </div>
+
+        <div class="p-field">
+          <input id="description" type="text" pInputText formControlName="description" placeholder="Descrição" required />
+        </div>
+
+        <div class="p-field">
+          <input id="expiryDate" type="date" pInputText formControlName="expiryDate" placeholder="Data de expiração" required />
+        </div>
+
+        <div class="p-field">
+          <input id="stock" type="number" pInputText formControlName="stock" placeholder="Estoque" required />
+        </div>
+
+        <div class="p-field">
+          <input id="price" type="number" pInputText formControlName="price" placeholder="Preço" required />
+        </div>
+
+        <div class="p-field">
+          <input id="imgUrl" type="text" pInputText formControlName="imgUrl" placeholder="Url da imagem" />
+        </div>
+
+        <button pButton type="submit" label="Register" [disabled]="productForm.invalid"></button>
+      </div>
+    </form>
+  </p-card>
+
+</section>

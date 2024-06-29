@@ -1,12 +1,27 @@
-<div class="user-create-container">
-  <h2>Create User</h2>
-  <form (ngSubmit)="createUser()">
-    <label for="username">Username</label>
-    <input type="text" id="username" [(ngModel)]="user.name" name="username" required>
-    
-    <label for="password">Password</label>
-    <input type="password" id="password" [(ngModel)]="user.password" name="password" required>
-    
-    <button type="submit">Create User</button>
-  </form>
-</div>
+<section class="container">
+  <p-card header="Cadastrar Usuário" styleClass="ui-card-shadow">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="p-fluid flex flex-column gap-4">
+        <div class="p-field">
+          <input id="name" type="text" pInputText formControlName="name" placeholder="Nome" required />
+        </div>
+
+        <div class="p-field">
+          <input id="email" type="email" pInputText formControlName="email" placeholder="Email" required />
+        </div>
+
+        <div class="p-field">
+          <p-password formControlName="password" [toggleMask]="true" placeholder="Senha"></p-password>
+        </div>
+
+        <div class="p-field">
+          <input id="githubUsername" type="text" pInputText formControlName="githubUsername"
+            placeholder="Github Username" required />
+        </div>
+
+        <button pButton type="submit" label="Register" [disabled]="userForm.invalid"></button>
+      </div>
+    </form>
+  </p-card>
+
+</section>

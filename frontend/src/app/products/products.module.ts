@@ -3,8 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { TableModule } from 'primeng/table';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -16,7 +19,11 @@ import { ButtonModule } from 'primeng/button';
     CommonModule,
     TableModule,
     FormsModule,
-    ButtonModule
+    ButtonModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    PasswordModule,
+    CardModule
   ]
 })
 export class ProductsModule { }

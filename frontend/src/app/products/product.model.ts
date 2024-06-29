@@ -3,7 +3,7 @@ export interface Product {
   code: string,
   name: string,
   description: string,
-  entryDate: string,
+  entryDate?: string,
   expiryDate: string,
   stock: 0,
   price: 0,

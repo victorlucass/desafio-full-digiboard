@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { Product } from '../product.model';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-create',
@@ -9,19 +10,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-create.component.scss']
 })
 export class ProductCreateComponent {
-  // product: Product = {
-  //   code: '',
-  //   description: '',
-  //   dateEntry: new Date(),
-  //   expiration: new Date(),
-  //   stock: 0
-  // };
+  productForm: FormGroup;
 
-  // constructor(private productsService: ProductsService, private router: Router) {}
+  constructor(private fb: FormBuilder, private productService: ProductsService, private router: Router) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      code: ['', Validators.required],
+      description: ['', Validators.required],
+      expiryDate: [new Date().toISOString(), Validators.required],
+      stock: ['', [Validators.required, Validators.min(0)]],
+      price: ['', [Validators.required, Validators.min(0)]],
+      imgUrl: ['', Validators.required]
+    });
+  }
 
-  // createProduct() {
-  //   this.productsService.createProduct(this.product).subscribe(() => {
-  //     this.router.navigate(['/products']);
-  //   });
-  // }
+  onSubmit() {
+    if (this.productForm.valid) {
+      this.productService.createProduct({
+        ...this.productForm.value,
+        expiryDate: new Date(this.productForm.value.expiryDate).toISOString(),
+        entryDate: new Date().toISOString()
+      }).subscribe(() => {
+        this.router.navigate(['/store']);
+      })
+    }
+  }
 }
