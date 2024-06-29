@@ -19,6 +19,7 @@ CREATE TABLE "Product" (
     "expiry_date" TIMESTAMP(3) NOT NULL,
     "stock" INTEGER NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
+    "img_url" TEXT NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
@@ -36,7 +37,13 @@ CREATE TABLE "Payment" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Product_code_key" ON "Product"("code");
 
 -- AddForeignKey
 ALTER TABLE "Payment" ADD CONSTRAINT "Payment_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
