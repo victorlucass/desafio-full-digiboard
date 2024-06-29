@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { UsersService } from 'src/app/users/users.service';
 
 @Component({
@@ -10,11 +11,13 @@ import { UsersService } from 'src/app/users/users.service';
 })
 export class LoginCreateComponent {
   form: FormGroup;
+  hidePassword = true;
 
   constructor(
     private userService: UsersService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.form = this.createForm();
   }
@@ -33,10 +36,20 @@ export class LoginCreateComponent {
   createUser(): void {
     if (this.form.valid) {
       this.userService.createUser(this.form.value).subscribe(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Conta criada com sucesso!'
+        });
         this.router.navigate(['/login']);
       });
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  // Método para alternar a visibilidade da senha
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 }

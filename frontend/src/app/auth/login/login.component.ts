@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/users/users.service';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +11,25 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  form!: FormGroup;
   payload: any;
 
   constructor(
     private authService: AuthService,
     private userService: UsersService,
     private router: Router,
+    private fb: FormBuilder,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.form = this.createForm();
+  }
+
+  private createForm(): FormGroup {
+    return this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   // Método para realizar o login
   login(): void {
@@ -28,7 +38,7 @@ export class LoginComponent {
       return;
     }
 
-    this.authService.login(this.email, this.password).subscribe(
+    this.authService.login(this.form.get('email')?.value, this.form.get('password')?.value).subscribe(
       (data) => {
         this.handleSuccessfulLogin(data.access_token);
       },
@@ -40,7 +50,7 @@ export class LoginComponent {
 
   // Método para validar se o formulário está preenchido
   isFormInvalid(): boolean {
-    return this.email === '' || this.password === '';
+    return this.form.invalid;
   }
 
   // Método para lidar com login bem-sucedido

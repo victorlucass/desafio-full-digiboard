@@ -1,5 +1,6 @@
 <div class="w-full h-screen flex justify-content-center align-items-center">
-  <p-card header="Criar conta">
+  <p-card class="card">
+    <img src="../../../assets/logo.svg" alt="logo" class="mb-4">
     <form [formGroup]="form" (ngSubmit)="createUser()" class="flex flex-column gap-4">
       <div class="flex flex-column justify-content-center align-items-center">
         <input type="text" class="w-full" pInputText id="name" formControlName="name" name="name" placeholder="Nome"
@@ -11,8 +12,11 @@
           placeholder="Email" required>
       </div>
 
-      <div class="flex flex-column justify-content-center align-items-center">
-        <p-password formControlName="password" [toggleMask]="true" placeholder="Senha"></p-password>
+      <div class="flex justify-content-center align-items-center w-full password-container">
+        <input pInputText [type]="hidePassword ? 'password' : 'text'" formControlName="password" class="w-full" placeholder="Senha" />
+        <button type="button" (click)="togglePasswordVisibility()">
+          <i [class]="hidePassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+        </button>
       </div>
 
       <div class="flex flex-column justify-content-center align-items-center">

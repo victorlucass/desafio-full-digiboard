@@ -1,15 +1,15 @@
 <div class="w-full h-screen flex justify-content-center align-items-center">
-  <p-card>
+  <p-card class="card">
     <img src="../../../assets/logo.svg" alt="logo" class="mb-4">
     <form (ngSubmit)="login()" class="flex flex-column gap-4">
       <div class="flex flex-column justify-content-center align-items-center">
-        <input type="email" class="w-full" pInputText id="email" [(ngModel)]="email" name="email" placeholder="Email"
+        <input type="email" class="w-full" pInputText id="email" formControlName="email" name="email" placeholder="Email"
           required>
       </div>
 
-      <div class="flex flex-column justify-content-center align-items-center">
-        <p-password class="w-full" [feedback]="false" [(ngModel)]="password" name="password" placeholder="Senha" [toggleMask]="true"
-          required></p-password>
+      <div class="flex flex-column justify-content-center align-items-center w-full">
+        <input type="password" class="w-full" pInputText id="password" formControlName="password" name="password" placeholder="Senha"
+        required>
       </div>
 
       <div class="flex flex-column justify-content-center align-items-center gap-4">
