@@ -112,7 +112,3 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 - **Nome:** Victor Lucas Andrade de Oliveira  
 - **Email:** victorlucas.ao@gmail.com  
 - **LinkedIn:** [[victorlucas-am]](https://www.linkedin.com/in/victorlucas-am/)
-
----
-
-Sinta-se à vontade para personalizar este README conforme necessário para se adequar às especificidades do seu projeto.
