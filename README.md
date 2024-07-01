@@ -63,6 +63,10 @@ Este projeto foi desenvolvido como parte da prova prática para a posição de D
      ```bash
      npx prisma migrate dev
      ```
+    - Inicie o servidor de desenvolvimento:
+     ```bash
+     npm start:dev
+     ```
 
 3. **Frontend:**
    - Navegue até o diretório do frontend:
