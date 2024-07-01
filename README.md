@@ -56,9 +56,9 @@ Este projeto foi desenvolvido como parte da prova prática para a posição de D
      docker-compose up -d
      ```
    - Instale as dependências:
-  ```bash
-  npm install
-  ```
+     ```bash
+     npm install
+     ```
    - Execute as migrações do Prisma:
      ```bash
      npx prisma migrate dev
