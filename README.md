@@ -63,6 +63,10 @@ Este projeto foi desenvolvido como parte da prova prática para a posição de D
      ```bash
      npx prisma migrate dev
      ```
+   - Execute o seed para adicionar dados ao banco:
+     ```bash
+      npx prisma db seed 
+     ```
    - Inicie o servidor de desenvolvimento:
      ```bash
      npm start:dev
