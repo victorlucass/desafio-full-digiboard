@@ -38,8 +38,7 @@ Este projeto foi desenvolvido como parte da prova prática para a posição de D
 
 1. **Clone o Repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/desafio-digiboard.git](https://github.com/victorlucass/desafio-full-digiboard)
-   cd desafio-digiboard
+   git clone https://github.com/victorlucass/desafio-full-digiboard.git
    ```
 
 2. **Backend:**
