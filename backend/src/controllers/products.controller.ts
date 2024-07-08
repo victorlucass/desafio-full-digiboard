@@ -24,7 +24,7 @@ const bodyValidationPipe = new ZodValidationPipe(createProductSchema)
 @UseGuards(JwtAuthGuard)
 @ApiTags('products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) {}
 
   @ApiOperation({ summary: 'Get all products' })
   @Get()
@@ -32,9 +32,21 @@ export class ProductsController {
     return this.productsService.findAll()
   }
 
+  @ApiOperation({ summary: 'Get all products by expiry date' })
+  @Get('/expiry-date')
+  findAllByExpiryDate() {
+    return this.productsService.findOnlyExpired()
+  }
+
+  @ApiOperation({ summary: 'Get all products not expired' })
+  @Get('/not-expired')
+  findAllByNotExpired() {
+    return this.productsService.findOnlyNotExpired()
+  }
+
   @ApiOperation({ summary: 'Create product' })
   @Post()
-  @UsePipes(new ZodValidationPipe(createProductSchema))
+  @UsePipes(bodyValidationPipe)
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto)
   }

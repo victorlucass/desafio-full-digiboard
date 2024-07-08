@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common'
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common'
 import { CreateProductDto } from 'src/dtos/create-product.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
@@ -18,107 +22,87 @@ export const createProductSchema = z
 
 @Injectable()
 export class ProductsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async findAll() {
-    const products = await this.prisma.product.findMany()
-    return products
+    return this.prisma.product.findMany()
+  }
+
+  async findOnlyExpired() {
+    return this.prisma.product.findMany({
+      where: {
+        expiryDate: {
+          lt: new Date(),
+        },
+      },
+      orderBy: {
+        expiryDate: 'asc',
+      },
+    })
+  }
+
+  async findOnlyNotExpired() {
+    return this.prisma.product.findMany({
+      where: {
+        expiryDate: {
+          gte: new Date(),
+        },
+      },
+      orderBy: {
+        expiryDate: 'asc',
+      },
+    })
   }
 
   async create(createProductDto: CreateProductDto) {
-    const {
-      name,
-      code,
-      description,
-      entryDate,
-      expiryDate,
-      stock,
-      price,
-      imgUrl,
-    } = createProductDto
+    const { code } = createProductDto
 
-    const productWithSameCode = await this.prisma.product.findMany({
-      where: {
-        code,
-      },
+    const productWithSameCode = await this.prisma.product.findUnique({
+      where: { code },
     })
 
-    if (productWithSameCode.length > 0) {
-      console.log(productWithSameCode)
-
-      throw new ConflictException('Esse código já existe')
+    if (productWithSameCode) {
+      throw new ConflictException('Esse código já existe')
     }
 
-    await this.prisma.product.create({
-      data: {
-        name,
-        code,
-        description,
-        entryDate,
-        expiryDate,
-        stock,
-        price,
-        imgUrl,
-      },
-    })
+    await this.prisma.product.create({ data: createProductDto })
   }
 
   async getProductById(id: string) {
-    const product = await this.prisma.product.findUnique({
-      where: {
-        id,
-      },
-    })
+    const product = await this.prisma.product.findUnique({ where: { id } })
 
     if (!product) {
-      throw new Error('Produto não encontrado')
+      throw new NotFoundException('Produto não encontrado')
     }
 
     return product
   }
 
-  async update(id: string, body: CreateProductDto) {
-    const product = await this.prisma.product.findUnique({
-      where: {
-        id,
-      },
-    })
-
-    if (!product) {
-      throw new Error('Produto não encontrado')
-    }
+  async update(id: string, updateProductDto: CreateProductDto) {
+    await this.ensureProductExists(id)
 
     await this.prisma.product.update({
-      where: {
-        id,
-      },
-      data: {
-        ...body,
-      },
+      where: { id },
+      data: updateProductDto,
     })
   }
 
   async delete(id: string) {
-    const product = await this.prisma.product.findUnique({
-      where: {
-        id,
-      },
-    })
-
-    if (!product) {
-      throw new Error('Produto não encontrado')
-    }
+    await this.ensureProductExists(id)
 
     await this.prisma.payment.deleteMany({
-      where: {
-        productId: id,
-      },
+      where: { productId: id },
     })
 
     await this.prisma.product.delete({
-      where: {
-        id,
-      },
+      where: { id },
     })
+  }
+
+  private async ensureProductExists(id: string) {
+    const product = await this.prisma.product.findUnique({ where: { id } })
+    if (!product) {
+      throw new NotFoundException('Produto não encontrado')
+    }
   }
 }
