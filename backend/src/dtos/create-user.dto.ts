@@ -15,9 +15,4 @@ export class CreateUserDto {
     description: 'Senha do usuário',
   })
   password: string
-
-  @ApiProperty({
-    description: 'Nome de usuário do GitHub',
-  })
-  githubUsername: string
 }

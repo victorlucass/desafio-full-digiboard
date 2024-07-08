@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
     { label: 'Pagamentos', icon: 'pi pi-fw pi-money-bill', routerLink: 'payments' }
   ];
 
-  avatarGithubUrl: string = "";
 
   constructor(public authService: AuthService, private router: Router) {}
 
@@ -49,7 +48,6 @@ export class HomeComponent implements OnInit {
       this.clearSessionAndRedirect();
     } else {
       const user = JSON.parse(userLocalStorage);
-      this.avatarGithubUrl = `https://github.com/${user.githubUsername}.png`;
     }
   }
 

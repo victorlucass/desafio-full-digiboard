@@ -13,10 +13,7 @@
     <ng-template pTemplate="body" let-payment>
       <tr>
         <td>{{ payment.product.name }}</td>
-        <td>
-          <p-chip [label]="payment.user.name" image="https://github.com/{{ payment.user.githubUsername }}.png">
-          </p-chip>
-        </td>
+        <td>{{ payment.user.name }}</td>
         <td>{{ payment.quantity }}</td>
         <td>{{ payment.product.price * payment.quantity | currency: 'BRL' }}</td>
         <td>{{ payment.deliveryDate | date:"dd/MM/yyyy" }}</td>

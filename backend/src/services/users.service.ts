@@ -9,7 +9,6 @@ export const createUserSchema = z
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(6),
-    githubUsername: z.string(),
   })
   .required()
 
@@ -23,7 +22,7 @@ export class UsersService {
   }
 
   async create(body: CreateUserDto) {
-    const { name, email, password, githubUsername } = body
+    const { name, email, password } = body
 
     const userWithSameEmail = await this.prisma.user.findUnique({
       where: {
@@ -42,7 +41,6 @@ export class UsersService {
         name,
         email,
         password: hashedPassword,
-        githubUsername,
       },
     })
   }
@@ -62,7 +60,6 @@ export class UsersService {
       id: user.id,
       name: user.name,
       email: user.email,
-      githubUsername: user.githubUsername,
     }
   }
 
@@ -77,7 +74,7 @@ export class UsersService {
       throw new Error('Usuário não encontrado')
     }
 
-    const { name, email, password, githubUsername } = body
+    const { name, email, password } = body
 
     const hashedPassword = await hash(password, 8)
 
@@ -89,7 +86,6 @@ export class UsersService {
         name,
         email,
         password: hashedPassword,
-        githubUsername,
       },
     })
   }

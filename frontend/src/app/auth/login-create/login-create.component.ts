@@ -28,7 +28,6 @@ export class LoginCreateComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      githubUsername: ['', Validators.required]
     });
   }
 

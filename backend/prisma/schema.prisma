@@ -14,12 +14,11 @@ datasource db {
 }
 
 model User {
-  id             String    @id @unique @default(uuid())
-  name           String
-  email          String    @unique
-  password       String
-  githubUsername String
-  payments       Payment[]
+  id       String    @id @unique @default(uuid())
+  name     String
+  email    String    @unique
+  password String
+  payments Payment[]
 }
 
 model Product {

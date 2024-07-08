@@ -1,8 +1,5 @@
 <div class="card">
   <p-menubar [model]="items">
-      <ng-template pTemplate="start">
-        <p-avatar [image]="avatarGithubUrl" styleClass="mr-2" size="large" shape="circle"></p-avatar>
-      </ng-template>
       <ng-template pTemplate="end">
         <p-button icon="pi pi-sign-out" severity="danger" (click)="logout()"></p-button>
       </ng-template>

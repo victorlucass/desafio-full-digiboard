@@ -121,67 +121,56 @@ async function main() {
       name: 'admin',
       email: 'admin@admin.com',
       password: 'password123',
-      githubUsername: 'admin',
     },
     {
       name: 'Alice Johnson',
       email: 'alice.johnson@example.com',
       password: 'password123',
-      githubUsername: 'alicejohnson',
     },
     {
       name: 'Bob Smith',
       email: 'bob.smith@example.com',
       password: 'password123',
-      githubUsername: 'bobsmith',
     },
     {
       name: 'Carol White',
       email: 'carol.white@example.com',
       password: 'password123',
-      githubUsername: 'carolwhite',
     },
     {
       name: 'David Brown',
       email: 'david.brown@example.com',
       password: 'password123',
-      githubUsername: 'davidbrown',
     },
     {
       name: 'Eve Davis',
       email: 'eve.davis@example.com',
       password: 'password123',
-      githubUsername: 'evedavis',
     },
     {
       name: 'Frank Miller',
       email: 'frank.miller@example.com',
       password: 'password123',
-      githubUsername: 'frankmiller',
     },
     {
       name: 'Grace Wilson',
       email: 'grace.wilson@example.com',
       password: 'password123',
-      githubUsername: 'gracewilson',
     },
     {
       name: 'Hank Moore',
       email: 'hank.moore@example.com',
       password: 'password123',
-      githubUsername: 'hankmoore',
     },
     {
       name: 'Ivy Taylor',
       email: 'ivy.taylor@example.com',
       password: 'password123',
-      githubUsername: 'ivytaylor',
     },
     {
       name: 'Jack Anderson',
       email: 'jack.anderson@example.com',
       password: 'password123',
-      githubUsername: 'jackanderson',
     },
   ]
 
