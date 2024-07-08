@@ -1,4 +1,15 @@
 <div class="card">
+  <div class="card flex flex-wrap gap-3 mb-2 p-4 w-full">
+    <div class="p-input-icon-left dg-input-search">
+      <i class="pi pi-search"></i>
+      <input type="text" class="w-full" pInputText placeholder="Pesquisar por nome ✍🏻" [formControl]="searchControl"/>
+    </div>
+
+   <div>
+     <p-dropdown [options]="options" [(ngModel)]="option" (onClear)="handlerClean()" (onChange)="handleOption()" optionLabel="label" [showClear]="true" placeholder="Filtros"></p-dropdown>
+   </div>
+  </div>
+
   <p-dataView #dv [value]="products">
     <ng-template let-product pTemplate="listItem">
       <div class="col-12">
@@ -18,7 +29,7 @@
                   <p-tag *ngIf="!validateExpiration(product)" [rounded]="true" severity="info">Expira em {{
                     product.expiryDate | date: 'dd/MM/yyyy' }}</p-tag>
                   <p-tag *ngIf="validateExpiration(product)" [rounded]="true" severity="danger">Produto Expirado em {{
-                    product.expiryDate | date: 'dd/MM/yyyy' }}</p-tag>
+                    product.expiryDate | date: 'dd/MM/yyyy' }}</p-tag>    
                   <span>
                     <h4>Descrição</h4>
                     <p>{{ product.description }}</p>
@@ -31,7 +42,8 @@
                 *ngIf="product.stock > 0 && !validateExpiration(product)">
 
                 <span class="flex gap-1 w-full">
-                  <button pButton class="p-button-success flex justify-content-between md:align-self-end mb-2 p-button-rounded w-full"
+                  <button pButton
+                    class="p-button-success flex justify-content-between md:align-self-end mb-2 p-button-rounded w-full"
                     [disabled]="product.stock === 0 || quantities[product.id] === 0 || quantities[product.id] == null"
                     (click)="toPayment(product)">
                     Comprar
@@ -40,10 +52,10 @@
                 </span>
 
                 <p-inputNumber [size]="5" [(ngModel)]="quantities[product.id]" [showButtons]="true"
-                buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
-                decrementButtonClass="p-button-info" incrementButtonClass="p-button-info"
-                incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="decimal" [min]="1"
-                [max]="product.stock"></p-inputNumber>
+                  buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
+                  decrementButtonClass="p-button-info" incrementButtonClass="p-button-info"
+                  incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="decimal" [min]="1"
+                  [max]="product.stock"></p-inputNumber>
               </div>
             </div>
           </div>

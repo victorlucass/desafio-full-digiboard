@@ -14,8 +14,28 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   // Método para obter a lista de produtos
-  getProducts(): Observable<Product[]> {
+  getProducts(query?: string): Observable<Product[]> {
+    if(query) {
+      return this.http.get<Product[]>(`${this.apiUrl}?name=${query}`);
+    }
     return this.http.get<Product[]>(this.apiUrl);
+  }
+
+  // Método para obter a lista de produtos expirados
+  getExpiredProducts(query?: string): Observable<Product[]> {
+    if(query) {
+      return this.http.get<Product[]>(`${this.apiUrl}/expiry-date?name=${query}`);
+    }
+
+    return this.http.get<Product[]>(`${this.apiUrl}/expiry-date`);
+  }
+
+  // Método para obter a lista de produtos disponíveis
+  getAvailableProducts(query?: string): Observable<Product[]> {
+    if(query) {
+      return this.http.get<Product[]>(`${this.apiUrl}/available?name=${query}`);
+    }
+    return this.http.get<Product[]>(`${this.apiUrl}/available`);
   }
 
   // Método para obter um produto pelo ID

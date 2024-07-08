@@ -8,6 +8,7 @@ import {
   Put,
   UsePipes,
   Delete,
+  Query,
 } from '@nestjs/common'
 import {
   ProductsService,
@@ -28,20 +29,20 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'Get all products' })
   @Get()
-  findAll() {
-    return this.productsService.findAll()
+  findAll(@Query('name') query?: string) {
+    return this.productsService.findAll(query)
   }
 
   @ApiOperation({ summary: 'Get all products by expiry date' })
   @Get('/expiry-date')
-  findAllByExpiryDate() {
-    return this.productsService.findOnlyExpired()
+  findAllByExpiryDate(@Query('name') query?: string) {
+    return this.productsService.findOnlyExpired(query)
   }
 
   @ApiOperation({ summary: 'Get all products not expired' })
-  @Get('/not-expired')
-  findAllByNotExpired() {
-    return this.productsService.findOnlyNotExpired()
+  @Get('/available')
+  findAllByNotExpired(@Query('name') query?: string) {
+    return this.productsService.findOnlyAvailable(query)
   }
 
   @ApiOperation({ summary: 'Create product' })

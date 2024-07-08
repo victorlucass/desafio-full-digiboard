@@ -24,13 +24,30 @@ export const createProductSchema = z
 export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
-    return this.prisma.product.findMany()
-  }
-
-  async findOnlyExpired() {
+  async findAll(query?: string) {
     return this.prisma.product.findMany({
       where: {
+        name: {
+          contains: query,
+        },
+      },
+      orderBy: [
+        {
+          expiryDate: 'desc',
+        },
+        {
+          stock: 'desc',
+        },
+      ],
+    })
+  }
+
+  async findOnlyExpired(query?: string) {
+    return this.prisma.product.findMany({
+      where: {
+        name: {
+          contains: query,
+        },
         expiryDate: {
           lt: new Date(),
         },
@@ -41,11 +58,17 @@ export class ProductsService {
     })
   }
 
-  async findOnlyNotExpired() {
+  async findOnlyAvailable(query?: string) {
     return this.prisma.product.findMany({
       where: {
+        name: {
+          contains: query,
+        },
         expiryDate: {
           gte: new Date(),
+        },
+        stock: {
+          gt: 0,
         },
       },
       orderBy: {

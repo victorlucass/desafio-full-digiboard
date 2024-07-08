@@ -5,6 +5,8 @@ import { PaymentsService } from '../payments/payments.service';
 import { User } from '../users/user.model';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-store',
@@ -15,6 +17,23 @@ export class StoreComponent implements OnInit {
   products: Product[] = [];
   quantities: { [productId: string]: number } = {};
   user: User | null = null;
+  searchControl = new FormControl();
+  
+  options = [
+    {
+      label: 'Produtos expirados',
+      value: 'expired',
+    },
+    {
+      label: 'Produtos disponíveis',
+      value: 'available',
+    },
+  ];
+
+  option?: {
+    label: string;
+    value: string;
+  };
 
   constructor(
     private productService: ProductsService,
@@ -26,14 +45,47 @@ export class StoreComponent implements OnInit {
   ngOnInit(): void {
     this.loadProducts();
     this.loadUser();
+
+    this.searchControl.valueChanges.pipe(
+      debounceTime(1000) // Adiciona um delay de 1 segundo
+    ).subscribe(value => {
+      this.filterProducts(value);
+    });
   }
 
   // Método para carregar produtos
-  private loadProducts(): void {
-    this.productService.getProducts().subscribe((data) => {
+  private loadProducts(query?: string): void {
+    this.productService.getProducts(query).subscribe((data) => {
       this.products = data;
       this.initializeQuantities();
     });
+  }
+
+  filterProducts(query?: string): void {
+    switch (this.option?.value) {
+      case 'expired':
+        this.productService.getExpiredProducts(query).subscribe((data) => {
+          this.products = data;
+        })
+        break;
+      case 'available':
+        this.productService.getAvailableProducts(query).subscribe((data) => {
+          this.products = data;
+        })
+        break;
+      default:
+        this.loadProducts(query);
+        break;
+    }
+   
+  }
+
+  handleOption(): void {
+    this.filterProducts(this.searchControl.value);
+  }
+
+  handlerClean(): void {
+    this.loadProducts();
   }
 
   // Método para inicializar as quantidades de produtos

@@ -5,8 +5,9 @@ import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [
     StoreComponent
@@ -18,6 +19,9 @@ import { FormsModule } from '@angular/forms';
     TagModule,
     InputNumberModule,
     FormsModule,
+    InputTextModule,
+    DropdownModule,
+    ReactiveFormsModule
   ]
 })
 export class StoreModule { }
