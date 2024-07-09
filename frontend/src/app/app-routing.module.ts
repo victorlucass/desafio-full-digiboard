@@ -20,23 +20,23 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Rota protegida que exige autenticação
   {
-    path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
+    path: '', component: HomeComponent, children: [
       // Rota para listar usuários
-      { path: 'users', component: UserListComponent, resolve: { users: UserResolver } },
+      { path: 'users', component: UserListComponent, canActivate: [AuthGuard], resolve: { users: UserResolver } },
       // Rota para criar usuário
-      { path: 'users/create', component: UserCreateComponent },
+      { path: 'users/create', component: UserCreateComponent, canActivate: [AuthGuard] },
       // Rota para editar usuário
-      { path: 'users/:id', component: UserCreateComponent },
+      { path: 'users/:id', component: UserCreateComponent, canActivate: [AuthGuard] },
       // Rota para a loja
-      { path: 'store', component: StoreComponent },
+      { path: 'store', component: StoreComponent, canActivate: [AuthGuard] },
       // Rota para listar produtos
-      { path: 'products', component: ProductListComponent, resolve: { products: ProductResolver } },
+      { path: 'products', component: ProductListComponent, canActivate: [AuthGuard], resolve: { products: ProductResolver } },
       // Rota para criar produto
-      { path: 'products/create', component: ProductCreateComponent },
+      { path: 'products/create', component: ProductCreateComponent, canActivate: [AuthGuard], },
       // Rota para editar produto
-      { path: 'product/:id', component: ProductCreateComponent },
+      { path: 'product/:id', component: ProductCreateComponent, canActivate: [AuthGuard] },
       // Rota para listar pagamentos
-      { path: 'payments', component: PaymentListComponent, resolve: { payments: PaymentResolver } },
+      { path: 'payments', component: PaymentListComponent, resolve: { payments: PaymentResolver }, canActivate: [AuthGuard], },
       // Rota padrão redirecionando para a loja
       { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]

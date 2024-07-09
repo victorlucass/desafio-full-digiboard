@@ -14,7 +14,7 @@ import { JwtStrategy } from 'src/auth/jwt-strategy'
         const privateKey = config.get('JWT_PRIVATE_KEY', { infer: true })
         const publickey = config.get('JWT_PUBLIC_KEY', { infer: true })
         return {
-          signOptions: { algorithm: 'RS256' },
+          signOptions: { algorithm: 'RS256', expiresIn: '1d' },
           privateKey: Buffer.from(privateKey, 'base64'),
           publicKey: Buffer.from(publickey, 'base64'),
         }

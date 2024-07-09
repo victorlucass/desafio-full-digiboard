@@ -33,14 +33,20 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  // Método para verificar se o usuário está logado
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+  // Método para verificar se o usuário está autenticado
+  isLoggedIn() {
+    const token = localStorage.getItem('token');
+    return token && !this.jwtHelper.isTokenExpired(token);
   }
 
   // Método para ler o payload do token JWT
   readPayload(token: string): any {
     return this.jwtHelper.decodeToken(token);
+  }
+
+  // Método para obter o token armazenado
+  getToken() {
+    return localStorage.getItem('token');
   }
 
   // Método para obter o payload do token armazenado

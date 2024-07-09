@@ -25,7 +25,7 @@ import { MessageService } from 'primeng/api';
     PasswordModule,
     ButtonModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService, AuthGuard, MessageService]
 })
